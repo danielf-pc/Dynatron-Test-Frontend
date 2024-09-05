@@ -1,0 +1,3 @@
+<div [ngClass]="{'loading-overlay': true, 'fade-in': (loading$ | async), 'fade-out': !(loading$ | async)}">
+    <img src="assets/loading-image.gif" alt="Loading..." class="loading-image" />
+  </div>

@@ -1,0 +1,65 @@
+<div class="list row">
+  <div class="col-md-12">
+    <div class="header-container">
+      <h1 class="mat-headline">Customer List</h1>
+    
+      <div class="actions-container">
+        <button mat-icon-button color="warn" aria-label="Delete All" matTooltip="Delete All Customers" matTooltipPosition="above" (click)="removeAllCustomers()">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+    
+        <button mat-icon-button color="primary" aria-label="Add Customer" matTooltip="Add Customer" matTooltipPosition="above" (click)="addCustomer()">
+          <mat-icon>add</mat-icon>
+        </button>
+    
+        <mat-form-field appearance="outline" class="search-form-field">
+          <mat-label>Search Customer</mat-label>
+          <input matInput [formControl]="searchControl" />
+          <button mat-button *ngIf="searchControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchControl.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="id-column"> {{ tableLabels[0] }} </mat-header-cell>
+        <mat-cell *matCellDef="let customer" class="id-column" (click)="onSelectCustomer(customer)" [ngClass]="{'highlighted': isRowSelected(customer)}"> {{ customer.id }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="firstName-column"> {{ tableLabels[1] }} </mat-header-cell>
+        <mat-cell *matCellDef="let customer" class="firstName-column" (click)="onSelectCustomer(customer)" [ngClass]="{'highlighted': isRowSelected(customer)}"> {{ customer.firstName }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="lastName-column"> {{ tableLabels[2] }} </mat-header-cell>
+        <mat-cell *matCellDef="let customer" class="lastName-column" (click)="onSelectCustomer(customer)" [ngClass]="{'highlighted': isRowSelected(customer)}"> {{ customer.lastName }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="email-column"> {{ tableLabels[3] }} </mat-header-cell>
+        <mat-cell *matCellDef="let customer" class="email-column" (click)="onSelectCustomer(customer)" [ngClass]="{'highlighted': isRowSelected(customer)}"> {{ customer.email }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="actions-column"> {{ tableLabels[4] }} </mat-header-cell>
+        <mat-cell *matCellDef="let customer" class="actions-column" (click)="onSelectCustomer(customer)" [ngClass]="{'highlighted': isRowSelected(customer)}">
+          <button mat-icon-button color="primary" (click)="editCustomer(customer, $event)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteCustomer(customer.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let customer; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

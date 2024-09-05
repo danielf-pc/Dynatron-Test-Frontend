@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <span>Customer Site</span>
+  <button mat-icon-button (click)="openSettingsDialog()">
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="mat-app-background basic-container">
+  <router-outlet></router-outlet>
+  <app-loading></app-loading>
+</div>
